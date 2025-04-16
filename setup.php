@@ -17,7 +17,7 @@ function plugin_init_incyberts() {
 function plugin_version_incyberts() {
    return [
       'name'           => 'inCyber TimeSheet',
-      'version'        => '1.1.0',
+      'version'        => '1.1.1',
       'author'         => 'Você e Jake 🧑‍💻',
       'license'        => 'MIT',
       'homepage'       => 'https://incyber.com.br',
