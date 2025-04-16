@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<manifest>
+  <name>inCyber TimeSheet</name>
+  <version>1.1.0</version>
+  <author>Você e Jake</author>
+  <homepage>https://incyber.com.br</homepage>
+  <license>MIT</license>
+  <minGlpiVersion>10.0.0</minGlpiVersion>
+  <requires>
+    <glpi min="10.0.0" />
+  </requires>
+</manifest>
