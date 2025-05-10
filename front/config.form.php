@@ -1,18 +1,15 @@
 <?php
 include '../../../inc/includes.php';
 
-// Cabeçalho da página
 Html::header(__('Configuração do inCyber TimeSheet', 'incyberts'), $_SERVER['PHP_SELF'], "plugins", "plugin");
 
-// CSRF Token
 $token = Session::getNewCSRFToken();
 
-// Verifica se está salvando
+// Salvando dados
 if (isset($_POST['update'])) {
    $api_url = $_POST['api_url'];
    $bearer  = $_POST['bearer'];
 
-   // Consulta existente
    $query = $DB->request([
       'FROM' => 'glpi_plugin_incyberts_config',
       'LIMIT' => 1
@@ -35,17 +32,17 @@ if (isset($_POST['update'])) {
    Html::redirect($_SERVER['PHP_SELF']);
 }
 
-// Busca valores para preencher o form
+// Recuperando configuração existente (com segurança)
 $config = ['api_url' => '', 'bearer' => ''];
+
 $query = $DB->request([
    'FROM' => 'glpi_plugin_incyberts_config',
    'LIMIT' => 1
 ]);
 
-if ($query->count() > 0) {
-   $data = $query->next();
-   $config['api_url'] = $data['api_url'];
-   $config['bearer']  = $data['bearer'];
+if ($query->count() > 0 && ($data = $query->next())) {
+   $config['api_url'] = $data['api_url'] ?? '';
+   $config['bearer']  = $data['bearer'] ?? '';
 }
 ?>
 
@@ -57,12 +54,14 @@ if ($query->count() > 0) {
 
       <tr class="tab_bg_1">
          <td><label for="api_url">API URL:</label></td>
-         <td><input type="text" name="api_url" size="80" value="<?= htmlentities($config['api_url'], ENT_QUOTES, 'UTF-8') ?>"></td>
+         <td><input type="text" name="api_url" size="80"
+                    value="<?= htmlentities($config['api_url'], ENT_QUOTES, 'UTF-8') ?>"></td>
       </tr>
 
       <tr class="tab_bg_1">
          <td><label for="bearer">Bearer Token:</label></td>
-         <td><input type="text" name="bearer" size="80" value="<?= htmlentities($config['bearer'], ENT_QUOTES, 'UTF-8') ?>"></td>
+         <td><input type="text" name="bearer" size="80"
+                    value="<?= htmlentities($config['bearer'], ENT_QUOTES, 'UTF-8') ?>"></td>
       </tr>
 
       <tr class="tab_bg_2 center">
